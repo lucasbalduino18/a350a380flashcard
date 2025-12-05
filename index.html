@@ -237,78 +237,107 @@
             transform: rotateY(180deg);
         }
 
-        .category-badge {
-            font-size: 0.65rem;
+        .card-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
             color: var(--primary);
             text-transform: uppercase;
-            letter-spacing: 0.15rem;
-            margin-bottom: 1.5rem;
-            padding: 0.4rem 0.8rem;
-            border: 1px solid var(--primary);
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.1);
+            letter-spacing: 0.2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-category {
+            font-size: 0.65rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
         }
 
         .card-content {
             font-size: 1.1rem;
             line-height: 1.8;
-            position: relative;
-            z-index: 1;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
         }
 
-        .card-number {
-            position: absolute;
-            bottom: 1.5rem;
-            right: 2rem;
-            font-size: 0.7rem;
+        .card-front .card-content {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .card-back .card-content {
+            color: var(--accent);
+        }
+
+        .card-footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            font-size: 0.75rem;
             color: var(--secondary);
-            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
         }
 
         .navigation {
             display: flex;
-            gap: 0.75rem;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 1.5rem;
         }
 
         .nav-btn {
-            padding: 0.6rem 1.2rem;
-            font-size: 0.75rem;
+            min-width: 150px;
         }
 
-        .know-btn {
+        .btn-primary {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--primary);
+        }
+
+        .btn-success {
+            background: rgba(74, 222, 128, 0.2);
             border-color: var(--success);
-            background: rgba(74, 222, 128, 0.1);
         }
 
-        .know-btn:hover {
+        .btn-success:hover {
             background: var(--success);
-            color: var(--dark);
+            border-color: var(--success);
         }
 
-        .review-btn {
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.2);
             border-color: var(--danger);
-            background: rgba(239, 68, 68, 0.1);
         }
 
-        .review-btn:hover {
+        .btn-danger:hover {
             background: var(--danger);
-            color: var(--dark);
+            border-color: var(--danger);
         }
 
         .progress-bar {
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: rgba(212, 175, 55, 0.2);
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             transition: width 0.3s ease;
             box-shadow: 0 0 10px var(--primary);
         }
@@ -320,23 +349,34 @@
         }
 
         .message {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid var(--primary);
-            font-size: 0.8rem;
-            animation: fadeIn 0.3s ease;
+            text-align: center;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid var(--primary);
+            background: rgba(212, 175, 55, 0.1);
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            animation: slideIn 0.5s ease;
         }
 
-        @keyframes fadeIn {
+        @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        .shuffle-icon {
+            display: inline-block;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         footer {
@@ -358,33 +398,103 @@
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
             .logo {
                 font-size: 1.8rem;
                 letter-spacing: 0.2rem;
             }
 
-            .card-face {
-                padding: 2rem 1.5rem;
-            }
-
-            .card-content {
-                font-size: 0.95rem;
+            .subtitle {
+                font-size: 0.7rem;
             }
 
             .controls {
-                flex-direction: column;
+                gap: 0.5rem;
+                margin-bottom: 0.75rem;
             }
 
             .category-select {
                 max-width: 100%;
+                min-width: 150px;
             }
 
-            button {
-                width: 100%;
+            select, button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.7rem;
+            }
+
+            .stats {
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .stat-item {
+                padding: 0.4rem 0.8rem;
+            }
+
+            .stat-label {
+                font-size: 0.6rem;
+                margin-bottom: 0.2rem;
+            }
+
+            .stat-value {
+                font-size: 1rem;
+            }
+
+            .progress-bar {
+                height: 2px;
+                margin-bottom: 0.75rem;
+            }
+
+            .flashcard-container {
+                margin-bottom: 1rem;
+                min-height: 350px;
+            }
+
+            .card-face {
+                padding: 2rem;
+                min-height: 350px;
+            }
+
+            .card-content {
+                font-size: 1rem;
+            }
+
+            .card-front .card-content {
+                font-size: 1.1rem;
+            }
+
+            .card-header {
+                font-size: 0.65rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .card-category {
+                font-size: 0.6rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .navigation {
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                min-width: 100px;
+                padding: 0.5rem 1rem;
+                font-size: 0.7rem;
+            }
+
+            .message {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                margin-bottom: 1.5rem;
             }
         }
 
@@ -397,6 +507,20 @@
             margin-bottom: 0.5rem;
         }
 
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-size: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
         strong {
             color: var(--primary);
         }
@@ -405,17 +529,21 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">Etihad Airways</div>
-            <div class="subtitle">A350/A380 Knowledge Validation</div>
-            <div class="version-info">Revision 11 | Date: 10.10.2025</div>
+            <h1 class="logo">A350/A380 Knowledge</h1>
+            <p class="subtitle">Oral Validation Flashcards</p>
+            <p class="subtitle" style="font-size: 0.7rem; margin-top: 0.5rem; opacity: 0.7;">Revision 11 (10.10.2025)</p>
         </header>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
 
         <div class="controls">
             <div class="category-select">
                 <select id="categorySelect">
                     <option value="all">All Questions</option>
                     <option value="general">General Limitations</option>
-                    <option value="aircon">Air Conditioning / Pressurization</option>
+                    <option value="aircon">Air Conditioning/Pressurization</option>
                     <option value="autoflight">Auto Flight</option>
                     <option value="fuel">Fuel Limitations</option>
                     <option value="gear">Landing Gear</option>
@@ -427,7 +555,9 @@
                     <option value="calls">Emergency Calls</option>
                 </select>
             </div>
-            <button id="shuffleBtn">🔀 Shuffle</button>
+            <button id="shuffleBtn" class="btn-primary">
+                <span class="shuffle-icon">⟳</span> Shuffle
+            </button>
         </div>
 
         <div class="stats">
@@ -445,32 +575,39 @@
             </div>
         </div>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-        <div class="message-area" id="messageArea"></div>
+        <div id="messageArea"></div>
 
         <div class="flashcard-container">
             <div class="flashcard" id="flashcard">
                 <div class="card-face card-front">
-                    <div class="category-badge" id="categoryLabel">Category</div>
-                    <div class="card-content" id="questionText">Click to start</div>
-                    <div class="card-number" id="cardNumber">0 / 0</div>
+                    <div class="card-category" id="categoryLabel"></div>
+                    <div class="card-header">
+                        <span>Question</span>
+                        <span id="cardNumber">1 / 127</span>
+                    </div>
+                    <div class="card-content" id="questionText">
+                        Click shuffle to start studying
+                    </div>
+                    <div class="card-footer">Click card to reveal answer</div>
                 </div>
                 <div class="card-face card-back">
-                    <div class="category-badge">Answer</div>
-                    <div class="card-content" id="answerText">Flip to see answer</div>
-                    <div class="card-number" id="cardNumberBack">0 / 0</div>
+                    <div class="card-header">
+                        <span>Answer</span>
+                        <span id="cardNumberBack">1 / 127</span>
+                    </div>
+                    <div class="card-content" id="answerText">
+                        Answer will appear here
+                    </div>
+                    <div class="card-footer">Click card to see question</div>
                 </div>
             </div>
         </div>
 
         <div class="navigation">
-            <button id="prevBtn" class="nav-btn">← Previous</button>
-            <button id="knowBtn" class="nav-btn know-btn">✓ Know It</button>
-            <button id="reviewBtn" class="nav-btn review-btn">⟳ Review</button>
-            <button id="nextBtn" class="nav-btn">Next →</button>
+            <button id="prevBtn" class="nav-btn btn-primary">← Previous</button>
+            <button id="knowBtn" class="nav-btn btn-success">✓ Know It</button>
+            <button id="reviewBtn" class="nav-btn btn-danger">✗ Review</button>
+            <button id="nextBtn" class="nav-btn btn-primary">Next →</button>
         </div>
 
         <footer>
