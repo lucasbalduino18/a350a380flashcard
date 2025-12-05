@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A350/A380 Knowledge Flashcards - Etihad Airways</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #D4AF37;
+            --secondary: #8B7355;
+            --dark: #0A0E27;
+            --darker: #050816;
+            --accent: #FFD700;
+            --text: #E8E8E8;
+            --success: #4ADE80;
+            --danger: #EF4444;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(212, 175, 55, 0.03) 0px, transparent 1px, transparent 2px, rgba(212, 175, 55, 0.03) 3px),
+                repeating-linear-gradient(90deg, rgba(212, 175, 55, 0.03) 0px, transparent 1px, transparent 2px, rgba(212, 175, 55, 0.03) 3px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 0.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8)); }
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+        }
+
+        .version-info {
+            font-size: 0.7rem;
+            color: var(--secondary);
+            margin-top: 0.5rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .category-select {
+            flex: 1;
+            min-width: 200px;
+            max-width: 350px;
+        }
+
+        select, button {
+            font-family: 'Share Tech Mono', monospace;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary);
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--text);
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08rem;
+        }
+
+        select {
+            width: 100%;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D4AF37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+            padding-right: 3rem;
+        }
+
+        button:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .stats {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0.5rem 1rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--primary);
+            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .flashcard-container {
+            perspective: 1500px;
+            margin-bottom: 2rem;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flashcard {
+            width: 100%;
+            max-width: 900px;
+            min-height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            min-height: 400px;
+            backface-visibility: hidden;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95) 0%, rgba(5, 8, 22, 0.95) 100%);
+            border: 2px solid var(--primary);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+        }
+
+        .card-face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(212, 175, 55, 0.03) 2px,
+                rgba(212, 175, 55, 0.03) 4px
+            );
+            pointer-events: none;
+        }
+
+        .card-front {
+            z-index: 2;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .card-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-category {
+            font-size: 0.65rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .card-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            padding: 0 1rem;
+        }
+
+        .card-content > div {
+            width: 100%;
+        }
+
+        .card-front .card-content {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .card-back .card-content {
+            color: var(--accent);
+        }
+
+        .card-footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            font-size: 0.75rem;
+            color: var(--secondary);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            min-width: 150px;
+        }
+
+        .btn-primary {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--primary);
+        }
+
+        .btn-success {
+            background: rgba(74, 222, 128, 0.2);
+            border-color: var(--success);
+        }
+
+        .btn-success:hover {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(212, 175, 55, 0.2);
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .message-area {
+            text-align: center;
+            min-height: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .message {
+            text-align: center;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid var(--primary);
+            background: rgba(212, 175, 55, 0.1);
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .shuffle-icon {
+            display: inline-block;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            font-size: 0.8rem;
+            color: var(--secondary);
+            letter-spacing: 0.1rem;
+        }
+
+        footer .name {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.8rem;
+                letter-spacing: 0.2rem;
+            }
+
+            .subtitle {
+                font-size: 0.7rem;
+            }
+
+            .controls {
+                gap: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .category-select {
+                max-width: 100%;
+                min-width: 150px;
+            }
+
+            select, button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.7rem;
+            }
+
+            .stats {
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .stat-item {
+                padding: 0.4rem 0.8rem;
+            }
+
+            .stat-label {
+                font-size: 0.6rem;
+                margin-bottom: 0.2rem;
+            }
+
+            .stat-value {
+                font-size: 1rem;
+            }
+
+            .progress-bar {
+                height: 2px;
+                margin-bottom: 0.75rem;
+            }
+
+            .flashcard-container {
+                margin-bottom: 1rem;
+                min-height: 350px;
+            }
+
+            .card-face {
+                padding: 2rem;
+                min-height: 350px;
+            }
+
+            .card-content {
+                font-size: 1rem;
+            }
+
+            .card-front .card-content {
+                font-size: 1.1rem;
+            }
+
+            .card-header {
+                font-size: 0.65rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .card-category {
+                font-size: 0.6rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .navigation {
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                min-width: 100px;
+                padding: 0.5rem 1rem;
+                font-size: 0.7rem;
+            }
+
+            .message {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-size: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        strong {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">A350/A380 Knowledge</h1>
+            <p class="subtitle">Oral Validation Flashcards</p>
+            <p class="subtitle" style="font-size: 0.7rem; margin-top: 0.5rem; opacity: 0.7;">Revision 11 (10.10.2025)</p>
+        </header>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="controls">
+            <div class="category-select">
+                <select id="categorySelect">
+                    <option value="all">All Questions</option>
+                    <option value="general">General Limitations</option>
+                    <option value="aircon">Air Conditioning/Pressurization</option>
+                    <option value="autoflight">Auto Flight</option>
+                    <option value="fuel">Fuel Limitations</option>
+                    <option value="gear">Landing Gear</option>
+                    <option value="oxygen">Oxygen</option>
+                    <option value="apu">APU</option>
+                    <option value="powerplant">Powerplant</option>
+                    <option value="memory">Memory Items</option>
+                    <option value="policies">Operational Policies</option>
+                    <option value="calls">Emergency Calls</option>
+                </select>
+            </div>
+            <button id="shuffleBtn" class="btn-primary">
+                <span class="shuffle-icon">⟳</span> Shuffle
+            </button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-label">Progress</div>
+                <div class="stat-value" id="progressStat">0/0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Known</div>
+                <div class="stat-value" id="knownStat">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Review</div>
+                <div class="stat-value" id="reviewStat">0</div>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="card-face card-front">
+                    <div class="card-category" id="categoryLabel"></div>
+                    <div class="card-header">
+                        <span>Question</span>
+                        <span id="cardNumber">1 / 127</span>
+                    </div>
+                    <div class="card-content" id="questionText">
+                        <div>Click shuffle to start studying</div>
+                    </div>
+                    <div class="card-footer">Click card to reveal answer</div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="card-header">
+                        <span>Answer</span>
+                        <span id="cardNumberBack">1 / 127</span>
+                    </div>
+                    <div class="card-content" id="answerText">
+                        <div>Answer will appear here</div>
+                    </div>
+                    <div class="card-footer">Click card to see question</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button id="prevBtn" class="nav-btn btn-primary">← Previous</button>
+            <button id="knowBtn" class="nav-btn btn-success">✓ Know It</button>
+            <button id="reviewBtn" class="nav-btn btn-danger">✗ Review</button>
+            <button id="nextBtn" class="nav-btn btn-primary">Next →</button>
+        </div>
+
+        <footer>
+            <div>A350/A380 Knowledge Validation Flashcards</div>
+            <div class="name">Lucas Balduino</div>
+        </footer>
+    </div>
+
+    <script>
+        // Flashcard Data - A350/A380 Etihad Airways
+        const flashcards = [
+            // GENERAL LIMITATIONS
+            {
+                category: 'general',
+                question: 'What is the maximum operating altitude?<br><strong>A350:</strong><br><strong>A380:</strong>',
+                answer: '<strong>A350:</strong> 41,450 ft<br><strong>A380:</strong> 43,100 ft'
+            },
+            {
+                category: 'general',
+                question: 'What is the aircraft maximum structural weight (TAXI, MTOW, MLW, MZFW)?',
+                answer: 'All structural weights are as specified in the LIM chapter'
+            },
+            {
+                category: 'general',
+                question: 'What are the maximum speeds for each flap/slat configuration (0, 1, 1+F, 2, 3, full)?',
+                answer: 'As specified on the cockpit placard and PFD'
+            },
+            {
+                category: 'general',
+                question: 'What is the limitation when taking off between 170T-175T on the A350?',
+                answer: '<strong>A350:</strong> CONF 1+F is mandatory<br><strong>A380:</strong> N/A'
+            },
+            {
+                category: 'general',
+                question: 'What is the limitation when landing weight is below 150T on the A350?',
+                answer: '<strong>A350:</strong> CONF 3 landing is mandatory, landing with tailwind above 10 kt is not permitted<br><strong>A380:</strong> N/A'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum speed with the landing gear extended?',
+                answer: '250 kt / M 0.55 (Both A350 and A380)'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum altitude at which the slats/flaps may be extended?',
+                answer: '20,000 ft (Both aircraft)'
+            },
+            {
+                category: 'general',
+                question: 'What is the recommended turbulence speed VRA?',
+                answer: 'As per MFD/PERF CRZ "MAX TURB"<br>VRA = green dot to 300 kt / M 0.85'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum tire speed (GS)?<br><strong>A350:</strong><br><strong>A380:</strong>',
+                answer: '<strong>A350:</strong> 213 kt<br><strong>A380:</strong> 204 kt'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum cockpit window open speed on the A380?',
+                answer: '<strong>A380:</strong> 250 kt<br><strong>A350:</strong> N/A'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum cockpit window closing speed on the A380?',
+                answer: '<strong>A380:</strong> 160 kt<br><strong>A350:</strong> N/A'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum speed to operate the windshield wipers?<br><strong>A350:</strong><br><strong>A380:</strong>',
+                answer: '<strong>A350:</strong> 230 kt<br><strong>A380:</strong> 250 kt'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum crosswind for takeoff/manual landing on a dry runway (Gusts Included)?',
+                answer: '<strong>A350:</strong> T/O: 35 kt, LD: 35 kt<br><strong>A380:</strong> T/O: 35 kt, LD: 40 kt'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum recommended crosswind limit for MAN landing on a wet runway reporting braking action GOOD?',
+                answer: '<strong>A350:</strong> 35/29 kt (For specific values refer to RCAM-EY SUPP for EY limitation)<br><strong>A380:</strong> 40 kt'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum tailwind component for landing?',
+                answer: '<strong>A350:</strong> 10 kt (Note: A6-XWB 15 kt)<br><strong>A380:</strong> 10 kt'
+            },
+            {
+                category: 'general',
+                question: 'What is the maximum taxi speed?',
+                answer: '<ul><li>The maximum taxi speed is 30 kt</li><li>EY policy stipulates maximum speed of 10 kt during 90° turns except on the A380 where it is 8-10kt</li><li>Additionally, EY policy stipulates that during LVP, when RVR falls below 550 m, the maximum recommended taxi speed is: 20 kt, or 10 kt if the aircraft is in or about to enter obscuring phenomena (sand, fog, snow, rain, dust)</li></ul>'
+            },
+            {
+                category: 'general',
+                question: 'What is the VMCL and VMCL2 (A380)?',
+                answer: '<strong>A350:</strong> VMCL = 123 kt<br><strong>A380:</strong> VMCL = 120 kt, VMCL2 = 145 kt'
+            },
+
+            // AIR CONDITIONING / PRESSURIZATION
+            {
+                category: 'aircon',
+                question: 'What is the air conditioning limitation when using an LP Ground Unit on the A350?',
+                answer: '<strong>A350:</strong> In order to prevent any adverse effect on the Air Conditioning system:<ul><li>Do not use conditioned air from the packs and from the LP air conditioning unit at the same time</li><li>Do not set the AIR FLOW selector to HI if an LP air conditioning unit is used and the aircraft is electrically powered</li></ul>'
+            },
+            {
+                category: 'aircon',
+                question: 'What is the air conditioning limitation when using an LP Ground Unit on the A380?',
+                answer: '<strong>A380:</strong> Airflow from the LP ground cart must not exceed 6.3kg/sec'
+            },
+            {
+                category: 'aircon',
+                question: 'What is the air conditioning limitation when using an HP Ground Unit?',
+                answer: 'Do not use bleed air from the APU BLEED and from the HP Air Start Unit at the same time (Both aircraft)'
+            },
+
+            // AUTO FLIGHT LIMITATIONS
+            {
+                category: 'autoflight',
+                question: 'What is the minimum weight for use of Autoland?',
+                answer: '<strong>A350:</strong> 160,000 kg<br><strong>A380:</strong> 305,000 kg'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the minimum height for use of the autopilot on takeoff?',
+                answer: '<strong>A350:</strong> At least 5 s after lift-off<br><strong>A380:</strong> 100 ft AGL, and at least 5 s after lift-off'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the minimum height for use of the autopilot during Non-Precision Approaches?',
+                answer: '200 ft AGL (Both aircraft)'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the minimum height for use of the autopilot during a Circling Approach?',
+                answer: '<strong>A350:</strong> Latest before starting descent toward the runway<br><strong>A380:</strong> 200 ft AGL'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the minimum height for use of the autopilot during an ILS Approach with CAT1/APPR 1 displayed on the FMA?',
+                answer: '160 ft AGL (Both aircraft)'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the minimum height for engagement of the autopilot during a Go Around?',
+                answer: '100 ft AGL (Both aircraft)'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the minimum height for use of the autopilot during all phases other than take-off, instrument approach or go-around?',
+                answer: '500 ft AGL (Both aircraft)'
+            },
+            {
+                category: 'autoflight',
+                question: 'What are the maximum wind conditions for a CAT 2 or CAT 3 ILS Automatic Approach, Landing, & Rollout?',
+                answer: '<strong>A350:</strong> H/W 40 kt, TW 10 kt (XWB – 15kts), XW 30 kt<br><strong>A380:</strong> H/W 38 kt, TW 10 kt, XW 30 kt<br><br>Note: Wind limitation is based on the surface wind reported by the tower. If the wind displayed on the ND exceeds the above-mentioned limitations, but the tower reported wind is within limitations, then the autopilot can remain engaged. If the tower now reports a surface wind beyond limitations, ONLY CAT1 automatic approach without Autoland can be performed.'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the general limitation regarding the use of the autopilot and/or the FD during an approach in OPEN DES or DES mode?',
+                answer: 'Use of the AP or FD in OPEN DES or DES mode is not permitted if the AFS CP selected altitude is set below 500 ft, or MDA(H)/DA(H), whichever is higher.'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the general limitation/precaution regarding obstacle clearance and constraints programmed into the FMGS?',
+                answer: 'Obstacle clearance and adherence to airspace constraints remains the flight crew\'s responsibility.'
+            },
+            {
+                category: 'autoflight',
+                question: 'Is it authorized to fly a RNP APCH without GPS PRIMARY/NAV PRIMARY (A380)?',
+                answer: 'No. FCOM/PRO/SPO/PBN requires at least 1 GPS to start a RNP APCH. (New PBN chart naming for RNAV(GNSS) approaches)'
+            },
+            {
+                category: 'autoflight',
+                question: 'What are the pre-requisites for using NAV mode in the terminal area?',
+                answer: 'NAV mode may be used in terminal area provided that:<ul><li>NAV PRIMARY is available (A350), or</li><li>GPS PRIMARY is available (A380), or</li><li>HIGH accuracy is displayed and the appropriate RNP is checked or entered on the MFD, or</li><li>Aircraft navigation is crosschecked with navaid raw data</li></ul>'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the applicable Alert Height during a CAT 3 Fail Operational (Dual) ILS Automatic Approach?',
+                answer: '200 ft (Both aircraft)'
+            },
+            {
+                category: 'autoflight',
+                question: 'What are the permissible flap/slat configurations for a CAT 2/CAT 3 ILS with One Engine Inoperative?',
+                answer: 'CONF 3 or FULL<br>If engine-out procedures are completed before reaching 1000 ft.'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the aircraft approach Category? (OM-A 8.1)',
+                answer: '<strong>A350:</strong> CAT D<br><strong>A380:</strong> CAT C'
+            },
+            {
+                category: 'autoflight',
+                question: 'What is the limitation regarding the use of the autopilot to perform a Non-Precision Approach if one engine is inoperative?',
+                answer: 'No limitation specified'
+            },
+            {
+                category: 'autoflight',
+                question: 'The FLS function may be used for which approach types?',
+                answer: '<table border="1" style="border-collapse: collapse; width: 100%; margin-top: 10px;"><tr><th style="padding: 8px; background: rgba(212, 175, 55, 0.2);">Approach Type</th><th style="padding: 8px; background: rgba(212, 175, 55, 0.2);">F-APP</th><th style="padding: 8px; background: rgba(212, 175, 55, 0.2);">F-APP+RAW</th></tr><tr><td style="padding: 8px;">VOR, VOR/DME, LOC (BC)</td><td style="padding: 8px;">YES</td><td style="padding: 8px;">YES</td></tr><tr><td style="padding: 8px;">ILS (G/S OUT)<br>ILS-BC (G/S OUT)</td><td style="padding: 8px;">YES</td><td style="padding: 8px;">YES</td></tr><tr><td style="padding: 8px;">RNAV (GNSS)</td><td style="padding: 8px;">YES</td><td style="padding: 8px;">Not Allowed</td></tr></table>'
+            },
+            {
+                category: 'autoflight',
+                question: 'What are the mandatory precautions that must be taken if performing an automatic landing in CAT 1 or better weather conditions (Practice LVP Approach/Autoland)?',
+                answer: '<ol><li>Practice low visibility approaches and/or Autoland are only permitted on runways certified for LVP, with prior ATC coordination and assurance of protection against signal disturbance. (OM-A 8.4.12).</li><li>The crew is aware that LOC or GS beam fluctuations, independent of aircraft systems, may occur and the PF is prepared to immediately disconnect the AP and take appropriate action, should unsatisfactory guidance occur.</li><li>At least CAT 2 (LAND 2) capability is displayed on the FMA, and CAT 2/CAT 3 procedures are used.</li><li>Visual references are obtained at an altitude appropriate to the performed CAT 1 approach. Otherwise, a go-around must be initiated.</li></ol>'
+            },
+            {
+                category: 'autoflight',
+                question: 'As per EY policy what is the lowest approved minima for Low Visibility take-off?',
+                answer: '125 m (Both aircraft)'
+            },
+
+            // FUEL LIMITATIONS
+            {
+                category: 'fuel',
+                question: 'What is the maximum allowable fuel imbalance in either inner or outer tanks at takeoff, landing and in flight?',
+                answer: 'As specified in the LIM Chapter'
+            },
+            {
+                category: 'fuel',
+                question: 'What is the maximum fuel temperature?',
+                answer: '<strong>A350:</strong> +55°C<br><strong>A380:</strong> +53°C'
+            },
+            {
+                category: 'fuel',
+                question: 'What is the minimum fuel temperature?',
+                answer: '<strong>JET A:</strong><br>A350: -40°C, A380: -40°C<br><strong>JET A1:</strong><br>A350: -47°C, A380: -47°C<br><br>As Specified in the LIM Chapter'
+            },
+            {
+                category: 'fuel',
+                question: 'What is the minimum fuel quantity for takeoff?',
+                answer: '<strong>A350:</strong> Not specified<br><strong>A380:</strong> Before pushback, if at least one fuel transfer tank is not empty, ensure that the fuel quantity in each feed tank is more than 4000 kg'
+            },
+            {
+                category: 'fuel',
+                question: 'What are the fuel types certified?',
+                answer: 'JET A, JET A1 and as Specified in the LIM Chapter'
+            },
+
+            // LANDING GEAR LIMITATIONS
+            {
+                category: 'gear',
+                question: 'What is the maximum allowed brake temperature for takeoff?',
+                answer: '<strong>A350:</strong> 300°C (150°C if Brake Fans were used)<br><strong>A380:</strong> 300°C<br><br>Note: Pilots MUST NOT commence takeoff if brake temperatures exceed these limitations. Delaying L/G retraction to reduce brake temperature(s) IS NOT an Airbus or Etihad approved procedure.'
+            },
+            {
+                category: 'gear',
+                question: 'What are the maximum speeds for landing gear extension and retraction?',
+                answer: 'Ext: 250 kt / M 0.55<br>Ret: 250 kt / M 0.55<br>(Both aircraft)'
+            },
+            {
+                category: 'gear',
+                question: 'What are the limitations regarding taxi with deflated or damaged tires?',
+                answer: '<strong>A350:</strong><ul><li>Maxi taxi speed: 3 kt</li><li>Maxi NSW angle: 30°</li><li>No more than one affected tire on the nose landing gear</li><li>No more than two affected tires on each main landing gear provided that the affected tires are not on the same axle</li></ul>In addition, if tire damage is suspected, the flight crew must ask for an aircraft inspection prior to vacate the runway or taxi. If the ground crew suspects that a tire burst may damage the landing gear, maintenance action is due.<br><br><strong>A380:</strong><ul><li>No deflated nose landing gear tire in the case of towing with tow barless towing</li><li>Max speed is 3 kt</li><li>Maxi NSW angle is 30 degrees</li><li>Up to 9 tires can be deflated, with the following max per landing gear:<br>- One tire deflated on the nose LDG GR<br>- Two tires deflated per body landing gear, provided they are not on the same axle<br>- Two tires deflated per wing landing gear provided they are not on the same axle</li></ul>For runway vacating only, the 2 deflated tires on the body or wing can be on the same axle.<br>For taxi, the two deflated tires can be located on the center axle of the body landing gear.'
+            },
+
+            // OXYGEN LIMITATIONS
+            {
+                category: 'oxygen',
+                question: 'What is the minimum oxygen required for a particular flight and flight crew?',
+                answer: 'As specified on the tables in LIM Chapter'
+            },
+            {
+                category: 'oxygen',
+                question: 'Following a loss of cabin pressure, the minimum oxygen required for a particular flight and flight crew, assumes the mask regulator is in what position?',
+                answer: 'The assumption is that the mask regulator is in the NORMAL (diluted oxygen) position.<br><br>Note: The conditions are based on the use of a sealed mask. They may be shorter for bearded crew (in terms of performance, pressure or duration).'
+            },
+            {
+                category: 'oxygen',
+                question: 'For what duration are all crew members protected by the oxygen system in the event of smoke with 100% Oxygen selected on the A380?',
+                answer: '<strong>A380:</strong> Protection against toxic gases and smoke for all flight crewmembers at 8000 ft cabin altitude for 15 min.<br><br>Note: The above times are based on the use of a sealed mask. They may be shortened when masks are used by bearded flight crew members.<br><br><strong>A350:</strong> TBD'
+            },
+
+            // APU LIMITATIONS
+            {
+                category: 'apu',
+                question: 'What is the operating limitation of the APU if the OIL LEVEL LO advisory is displayed on the APU SD page?',
+                answer: '<strong>A350:</strong> The APU may be started and operated even if the OIL LEVEL LO ECAM advisory is displayed. Maintenance action is required within 20 h of APU operation.<br><strong>A380:</strong> The APU may be started and operated even if the OIL LEVEL LO ECAM advisory is displayed. Maintenance action is required within 14 h of APU operation.'
+            },
+            {
+                category: 'apu',
+                question: 'What is the limitation regarding consecutive start attempts of the APU?',
+                answer: '<strong>A350:</strong> 3 consecutive APU start attempts, the flight crew must wait 60 min before a new start attempt.<br><strong>A380:</strong> 3 consecutive start attempts (duty cycles), 60 sec between each attempt and a 60 min cool down is required after the third attempt.'
+            },
+            {
+                category: 'apu',
+                question: 'What is the maximum APU EGT limit for any phase of operation?',
+                answer: 'The red line limit on the EGT scale (Both aircraft)'
+            },
+            {
+                category: 'apu',
+                question: 'What is the maximum altitude pressure and speed for an APU start?',
+                answer: '<strong>A350:</strong> No restrictions<br><strong>A380:</strong> 20,000 ft with Mach<0.56'
+            },
+            {
+                category: 'apu',
+                question: 'What is the maximum altitude to attempt an APU start with batteries only (ELEC EMER CONFIG)?',
+                answer: '<strong>A350:</strong> 41,450 ft<br><strong>A380:</strong> 20,000 ft'
+            },
+            {
+                category: 'apu',
+                question: 'What is the maximum altitude for using the APU Bleed with One/single Pack?',
+                answer: '<strong>A350:</strong> 25,000 ft<br><strong>A380:</strong> 22,500 ft'
+            },
+            {
+                category: 'apu',
+                question: 'What is the maximum altitude for using the APU Bleed with dual Pack?',
+                answer: '22,500 ft (Both aircraft)'
+            },
+            {
+                category: 'apu',
+                question: 'What is the maximum altitude to use the APU bleed for an Engine Start?',
+                answer: '<strong>A350:</strong> 25,000 ft<br><strong>A380:</strong> 22,500 ft'
+            },
+            {
+                category: 'apu',
+                question: 'Can you use wing anti-ice with the APU bleed air?',
+                answer: 'APU bleed air extraction for wing anti-ice is not permitted (Both aircraft)'
+            },
+            {
+                category: 'apu',
+                question: 'On ground, what is the approximate APU fuel consumption, with BOTH PACK ON and GEN ON?',
+                answer: '<strong>A350:</strong> 230 kg/h<br><strong>A380:</strong> 515 kg/h'
+            },
+            {
+                category: 'apu',
+                question: 'On ground, what is the approximate APU fuel consumption, with ONLY GEN ON?',
+                answer: '<strong>A350:</strong> 180 kg/h<br><strong>A380:</strong> 470 kg/h'
+            },
+            {
+                category: 'apu',
+                question: 'At FL 100, what is the approximate APU fuel consumption on the A350?',
+                answer: '<strong>A350:</strong> 170 kg/h'
+            },
+
+            // POWERPLANT LIMITATIONS
+            {
+                category: 'powerplant',
+                question: 'What is the minimum engine oil quantity for each flight?',
+                answer: 'As per OM-A 8.1.7.7, the minimum engine oil quantity required for a flight is the minimum quantity specified for a particular engine plus estimated oil consumption.<br><br><strong>A350:</strong><br>Flight Time < 5h → 13 qts<br>5h < FT < 7h → 15 qts<br>> 7h → full (> 22 qts on ENG SD page & oil tank is reported to be fully filled in the technical logbook)<br><br><strong>A380:</strong><br>FT < 10h → 10 qts<br>FT ≥ 10h → 6.0 + 0.4/h'
+            },
+            {
+                category: 'powerplant',
+                question: 'What is the minimum oil temperature for takeoff?',
+                answer: '+50°C (Both aircraft)'
+            },
+            {
+                category: 'powerplant',
+                question: 'What is the maximum time limit for using TOGA thrust?',
+                answer: '5 min under normal conditions<br>10 min in case of engine failure<br>(Both aircraft)'
+            },
+            {
+                category: 'powerplant',
+                question: 'What is the max. EGT for any phase?',
+                answer: 'The red line limit on the EGT scale (Both aircraft)'
+            },
+            {
+                category: 'powerplant',
+                question: 'What are the engine starter limitations for the A350?',
+                answer: '<strong>A350:</strong> Maximum continuous starter operation is 5 min:<ul><li>Two consecutive cycles of 3 min maximum, plus one additional cycle of 1 min, with a run down to zero N3 and wait 30 s between each cycle, or</li><li>One 5 min cycle</li><li>Wait 30 min after the last cycle to allow the starter to cool</li></ul>No running engagement of the starter when the N3 is above 10% on ground, or 30% in flight.'
+            },
+            {
+                category: 'powerplant',
+                question: 'What are the engine starter limitations for the A380?',
+                answer: '<strong>A380:</strong> Three (3) attempts of 5 min continuous with a 2 min cool down between attempts. When the starter accumulates 15 min of use, a 30min cool down is required.<br><br>Note: tailwind >25kts may have adverse effect on start. It may be necessary to reposition the airplane into the wind.'
+            },
+            {
+                category: 'powerplant',
+                question: 'What are the limitations regarding the use of Reverse Thrust?',
+                answer: '<ol><li>Selection of reverse thrust in flight is prohibited</li><li>Backing with reverse thrust is not permitted</li><li>Maximum reverse should not be used below 70 kt</li><li>Idle reverse is allowed down to aircraft stop</li></ol>'
+            },
+            {
+                category: 'powerplant',
+                question: 'Is reduced thrust take-off allowed on contaminated runways?',
+                answer: 'No (Both aircraft)'
+            },
+            {
+                category: 'powerplant',
+                question: 'Is reduced thrust take-off allowed with inoperative aircraft systems or components that affect performance?',
+                answer: 'Yes, provided the associated performance shortfall has been applied to meet all performance requirements (Both aircraft)'
+            },
+
+            // MEMORY ITEMS
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with the following TAWS WARNINGS: "PULL UP", "TERRAIN AHEAD PULL UP", "OBSTACLE AHEAD PULL UP"?',
+                answer: 'Announce: "PULL UP - TOGA" and simultaneously:<ul><li>AP OFF</li><li>PITCH PULL UP (to full back stick)</li><li>THRUST LEVERS TOGA</li><li>SPEED BRAKE LEVER CHECK RETRACTED</li><li>BANK WINGS LEVEL or ADJUST</li><li>DO NOT CHANGE CONFIGURATION (SLATS/FLAPS, GEAR) UNTIL CLEAR OF OBSTACLE</li></ul>When flight path is safe and the warning stops:<br>- Reduce Pitch and accelerate<br>When speed is above VLS and V/S is positive:<br>- Clean up aircraft as required'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with TAWS CAUTIONS: "TERRAIN TERRAIN", "TOO LOW TERRAIN", "TERRAIN AHEAD", "OBSTACLE AHEAD"?',
+                answer: '<ul><li>During night or IMC apply the EGPWS WARNINGS procedure</li><li>During daylight and VMC with terrain and obstacles clearly in sight: FLIGHT PATH – ADJUST</li></ul>'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with TAWS CAUTIONS: "SINK RATE", "GLIDE SLOPE"?',
+                answer: '<ul><li>Above 1000 ft AAL IMC or above 500 ft AAL VMC: FLIGHT PATH – ADJUST</li><li>Below 1000 ft AAL IMC or below 500 ft AAL VMC: GO-AROUND – CONSIDER</li></ul>'
+            },
+            {
+                category: 'memory',
+                question: 'What is the memory items associated with "DON\'T SINK" TAWS CAUTION?',
+                answer: 'FLIGHT PATH – ADJUST'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with "TOO LOW GEAR" and "TOO LOW FLAPS" TAWS CAUTIONS?',
+                answer: 'GO-AROUND - PERFORM'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with a Reactive Windshear alert (WINDSHEAR WINDSHEAR WINDSHEAR) warning or a pilot detected windshear encounter?',
+                answer: '<strong>1. TAKEOFF:</strong><br>• Before V1 – RTO if significant speed variations occur below V1 and if sufficient runway remains<br>• After V1 – Announce: "WINDSHEAR TOGA" and apply TOGA / ROTATE at VR / SRS follow<br><br><strong>2. AIRBORNE: Initial climb or landing</strong><br>Announce: "WINDSHEAR TOGA" and:<br>• TOGA / AP (keep if engaged) / SRS follow<br>• DO NOT CHANGE CONFIG (FLAPS/SLATS/GEAR) UNTIL OUT OF WINDSHEAR<br><br>If necessary crew may apply full back stick'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with an Unreliable Airspeed Indication on A350?',
+                answer: 'Announce: "UNRELIABLE SPEED" and then, if safe conduct of flight is impacted:<br>AP, A/THR, F/Ds - OFF<br>PITCH/THRUST:<br>- 12.5°/TOGA if Below THR RED ALT<br>- 10°/CLB, if Above THR RED ALT and below FL100<br>- 05°/CLB, if Above THR RED ALT and Above FL100<br>FLAPS - Maintain current configuration<br>- Flaps (if CONF FULL) – Select CONF 3<br>SPEED BRAKES - Check Retracted<br>LANDING GEAR - Up'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with an Unreliable Airspeed Indication on A380?',
+                answer: 'Announce: "UNRELIABLE SPEED" and then if safe conduct of flight is impacted:<br>AP, A/THR, F/Ds - OFF<br>PITCH/THRUST - BEFORE THR RED ALT<br>• Below 10000 ft – 12.5°/TOGA<br>• Above 10000 ft – 10°/TOGA<br>- AFTER THR RED ALT<br>IF derated climb engaged – Select all THR Levers - MCT<br>• Below 10000 ft –12.5°/CLB<br>• Between 100 and 250 – 10°/CLB<br>• Above 250 – 5°/CLB<br>FLAPS - Maintain current config (below FL250)<br>- Flaps (if CONF FULL) – Select CONF 3<br>SPEED BRAKES - Check Retracted<br>LANDING GEAR - Maintain (below FL250)'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with Loss of Braking?',
+                answer: 'Announce: "LOSS OF BRAKING"<br>If no braking available:<br>• REV – MAX<br>• BRAKE PEDALS – RELEASE<br>• A/SKID – OFF<br>• BRAKE PEDALS – PRESS<br>If still no braking:<br>• PARKING BRAKE – ON'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with TCAS "TRAFFIC" Alerts?',
+                answer: 'TCAS MODE check armed<br>• Announce: "TCAS BLUE"<br><br><strong>For TA:</strong><br>• IF A/THR is off – select ON (Recommended)<br>• Do not perform a maneuver based on TA only<br><br><strong>For all RA, except CLIMB RA during approach in CONF 3 or FULL:</strong><br>• If AP engaged & when TCAS mode engages Monitor the vertical speed and state "TCAS"<br>• If AP off: FD orders follow (the AP can be engaged)<br>• Monitor vertical speed<br><br><strong>Any CLIMB RA during approach in CONF 3 or FULL:</strong><br>• Perform Go-around<br>• Monitor vertical speed<br>• Notify ATC<br><br><strong>When "CLEAR OF CONFLICT":</strong><br>• Follow AP/FD<br>• Notify ATC<br>• Adjust Speed, Lateral and Vertical Guidance'
+            },
+            {
+                category: 'memory',
+                question: 'What are the indications of a stall?',
+                answer: 'AURAL WARNING (STALL, STALL) and/or buffet'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with a STALL RECOVERY?',
+                answer: 'Announce – "STALL, I HAVE CONTROL"<br>• NOSE DOWN PITCH CONTROL – APPLY<br>• BANK – WINGS LEVEL<br>- When out of stall (no longer stall indications):<br>• THRUST – INCREASE SMOOTHLY AS NEEDED<br>• SPEEDBRAKES – CHECK RETRACTED<br>• FLIGHT PATH – RECOVER SMOOTHLY<br>- If in clean configuration and below 20,000 ft:<br>• Select Flap 1'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with a STALL WARNING AT LIFT-OFF?',
+                answer: 'Announce: "STALL, TOGA 12.5°"<br>• THRUST – TOGA<br>• PITCH – 12.5°<br>• BANK – WINGS LEVEL'
+            },
+            {
+                category: 'memory',
+                question: 'What are the memory items associated with Emergency Descent?',
+                answer: 'The first pilot that notices indications of excessive and uncontrollable Cabin Altitude<br><br><strong>BOTH Pilots:</strong> Don oxygen mask & headset and establish communications<br><br><strong>PF (A350):</strong><br>Announce: "Emergency Descent"<br>EMER DESC: USE OF AUTO EMER DESC<br>• SPEED BRAKE- FULL<br>• FMA – ANNOUNCE<br>If A/THR is not engaged<br>• THRUST LEVERS – IDLE<br><br><strong>PM (A350):</strong><br>• SIGNS – ON<br>• FMA – CHECK<br><br><strong>PF (A380):</strong><br>Announce: "Emergency Descent"<br>On FCU:<br>• ALT selector – TURN & PULL<br>• HDG selector – TURN & PULL<br>• SPD selector – PULL<br>If Structural Damage<br>• SPD/MACH pb – SPD<br>On PFD<br>• FMA – ANNOUNCE<br>• Confirm – THR IDLE, OP DES, HDG<br>If A/THR is not engaged<br>• THRUST LEVERS – IDLE<br>On Pedestal<br>• SPD BRK – FULL<br><br><strong>PM (A380):</strong><br>• SIGNS – ON<br>• FMA – CHECK'
+            },
+
+            // OPERATIONAL POLICIES
+            {
+                category: 'policies',
+                question: 'What are the Company speed restrictions?',
+                answer: 'An aircraft speed shall not exceed 250 KIAS below 10,000 ft AAL or minimum clean speed, whichever is greater, unless a specific speed assigned by ATC, in which case the speed shall not be greater than 250 KIAS below 5,000 ft AAL or minimum clean speed, whichever is greater.'
+            },
+            {
+                category: 'policies',
+                question: 'What are the maximum allowable bank angles during takeoff?',
+                answer: '• Minor heading changes (up to 10 degrees bank) are not considered to be a turn<br>• 15 degrees at/above 300 ft AGL<br>• 30 degrees at/above 500 ft AGL'
+            },
+            {
+                category: 'policies',
+                question: 'What are the maximum permissible rates of climb/descent?',
+                answer: 'During climb or descent, the maximum vertical speed shall not exceed:<br>• 2,000 ft/min when within 2,000ft of the cleared flight level/altitude<br>• 1,500 ft/min when within 1,000ft of the cleared flight level/altitude<br><br>Higher rates are permissible during climb, cruise, descent, and approach only when:<br>• Both PF and PM confirm the absence of traffic in the vicinity that may compromise separation or result in a TCAS TA/RA; or<br>• When explicitly requested by ATC'
+            },
+            {
+                category: 'policies',
+                question: 'Maximum vertical speeds approaching Terrain/Obstacles',
+                answer: 'Below 10,000 ft AGL, at no time must rates of descent exceed the following values:<br>• 5,000 ft/min down to an altitude 5,000 ft AGL<br>• 4,000 ft/min down to an altitude 4,000 ft AGL<br>• 3,000 ft/min down to an altitude 3,000 ft AGL<br>• 2,000 ft/min down to an altitude 2,000 ft AGL<br>• 1,500 ft/min down to an altitude 1,000 ft AGL'
+            },
+            {
+                category: 'policies',
+                question: 'What are the Company stabilisation approach criteria?',
+                answer: 'An approach is considered stabilized when the following parameters are met:<br>1. All briefings are complete<br>2. The aircraft is on the vertical and lateral flight path<br>3. Only small changes in heading/pitch are necessary to maintain the flight path, whilst remaining within OM-B limitations<br>4. The indicated airspeed shall be within a range from VLS up to target speed +10 kt (deviation is permitted below 1,000 ft AAL down to 500 ft AAL only when specifically instructed by ATC to maintain a specific speed)<br>5. The thrust setting is appropriate for the aircraft configuration (deviation is permitted below 1,000 ft AAL down to 500 ft AAL only when specifically instructed by ATC to maintain a specific speed)<br>6. The aircraft is in the briefed landing configuration<br>7. Rate of descend is no greater than: 1,000 ft per minute for CAT C aircraft, or 1,200 ft per minute for CAT D aircraft<br>8. All checklists have been completed<br>9. ILS approaches must be flown within 1 dot of glide slope and localizer<br>10. During non-precision approaches, the course deviation must stay within ½ dot or 2.5° for VOR approaches and 5° for NDB approaches'
+            },
+            {
+                category: 'policies',
+                question: 'What is the latest point at which the stabilization approach criteria must be met during precision and non-precision approaches?',
+                answer: '• 1,500 ft AAL is the point at which it is recommended to have the aircraft in the briefed landing configuration<br>• When conducting an instrument approach, the flights shall be stabilized by 1,000 ft AAL'
+            },
+            {
+                category: 'policies',
+                question: 'What is Etihad\'s policy regarding orbits on final approach?',
+                answer: 'Orbit on the approach segment below 2,000 ft AAL is prohibited for any purpose, including losing of height, speed or increasing the track miles, even when requested by ATC.'
+            },
+            {
+                category: 'policies',
+                question: 'What is Etihad\'s policy regarding landing within the touchdown zone?',
+                answer: '• The desired touchdown zone lies between 300 to 600 m from the landing threshold<br>• If the touchdown cannot be accomplished within the desired touchdown zone, a missed approach should normally be initiated with due regard to the remaining runway length<br>• Spool up of engines, aircraft speed and pitch attitude must be considered carefully'
+            },
+            {
+                category: 'policies',
+                question: 'What is Etihad\'s policy regarding the decision to execute a go-around?',
+                answer: '• A decision to initiate a go-around rests with the Commander as long as the aircraft is higher than 1,000 ft AAL<br>• Below 1,000 ft AAL, a go-around shall be executed as soon as any operating flight crew member calls out "GO-AROUND", regardless of who is PF/PM'
+            },
+            {
+                category: 'policies',
+                question: 'What is Etihad\'s policy regarding consecutive missed approaches executed because of weather conditions?',
+                answer: 'If two consecutive missed approaches are executed for weather reasons, a third approach using the same runway/approach aid combination shall not be commenced unless a significant weather improvement occurs.'
+            },
+            {
+                category: 'policies',
+                question: 'When is the Sterile Cockpit Policy in force?',
+                answer: 'The Commander shall ensure that the "Sterile Cockpit Policy" is in force:<br>• From commencement of push back (or engine start when no pushback is required) to Top of Climb (TOC)<br>• From Top of Descent (TOD) until engine shut down on stand'
+            },
+            {
+                category: 'policies',
+                question: 'What is the No Contact Period and when is it valid?',
+                answer: 'During the no contact period, there shall be no contact with the flight deck from the cabin crew.<br><br>The no contact period is from:<br>• The application of takeoff power until the undercarriage is retracted<br>• The extension of the undercarriage prior to landing until the aircraft has vacated the runway'
+            },
+            {
+                category: 'policies',
+                question: 'What is the priority of tasks for the Flight Crew in all situations?',
+                answer: 'In all situations the flight crew shall prioritize the flying of the aircraft as follows:<br>• Aviate<br>• Navigate<br>• Communicate'
+            },
+            {
+                category: 'policies',
+                question: 'For the purpose of fuel planning and in-flight fuel management, at what point is an aircraft considered to be "in-flight"?',
+                answer: 'An aircraft is considered in-flight at the commencement of push back or after the first engine start, whichever occurs first.'
+            },
+            {
+                category: 'policies',
+                question: 'For the purpose of MEL applicability, what defines the commencement of the flight?',
+                answer: 'For the purpose of MEL applicability, the commencement of the flight is defined as the moment the aircraft begins to move under its own power with the intention of preparing for take-off.'
+            },
+            {
+                category: 'policies',
+                question: 'Under what conditions may the commander "continue towards the destination"?',
+                answer: 'The commander may continue towards the destination aerodrome provided a safe landing can be achieved at two suitable aerodromes with no less than Final Reserve Fuel (FRF).'
+            },
+            {
+                category: 'policies',
+                question: 'When may the commander "commit to land" at a specific aerodrome?',
+                answer: 'The commander shall only commit to land at a specific aerodrome after taking into account any operational factors, weather and traffic conditions that may cause a delay to land and therefore be able to determine that a safe landing can be achieved with not less than Final Reserve Fuel (FRF).'
+            },
+            {
+                category: 'policies',
+                question: 'When will the Flight Deck crew declare "MINIMUM FUEL"?',
+                answer: 'When having committed to land at a specific aerodrome, any change in the existing clearance may result in landing with less than planned final reserve fuel (FRF).'
+            },
+            {
+                category: 'policies',
+                question: 'When will the Flight Deck crew declare "MAYDAY FUEL"?',
+                answer: 'When the calculated usable fuel on landing, at the nearest adequate airport where a safe landing can be performed, is less than Final Reserve Fuel (FRF).'
+            },
+            {
+                category: 'policies',
+                question: 'What are the applicable procedures when a pilot needs to leave the flight deck?',
+                answer: 'When a flight crew member needs to leave the flight deck the remaining flight crew member shall:<ul><li>Be seated at his duty station</li><li>Adjust his seat to ensure that all flight controls can be reached with unobstructed access</li><li>Secure his seatbelt and shoulder harness</li><li>Wear headset for communication with ATC</li><li>Assume responsibility and control of the aircraft</li><li>Maintain constant vigilance, alertness and high situational awareness</li><li>Avoid asking for vertical or lateral changes from the assigned flight path</li><li>Avoid unnecessary paperwork</li><li>Not accept to be served crew meals</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What are the mandatory altitude checks and callouts during climb and descent phases of flight?',
+                answer: 'Altitude awareness is achieved by the active attention of the Flight Crew. This awareness with associated continuous monitoring is the primary means of ensuring that cleared altitudes are adhered to and clearances are not infringed. The mandatory checks and calls are:<ul><li>"10,000\' above airport elevation"</li><li>Every 10,000\' (FL200 and above, in climb and descent): "Passing ALT/FL…, climbing / Descending FL/ALT…"</li><li>1,000\' before reaching the cleared Altitude or Flight Level: "one thousand to go"</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What critical actions shall be crosschecked and confirmed by the flight crew?',
+                answer: '<ul><li>Engine thrust levers</li><li>Fuel master or control switches</li><li>Engine fire handles or switches</li><li>IDG/CSD disconnect switch</li><li>Aircraft configuration changes (Landing gear, wing flaps, speedbrakes)</li><li>Altimeter bug and airspeed bug settings, as applicable</li><li>Altimeter subscale settings</li><li>Altitude (window) selections</li><li>Transfer of control of the aircraft</li><li>Changes to the Automated Flight system (AFS) / Flight Management System (FMS) and radio navigation aids during the departure and or approach phases of flight</li><li>Weight/mass and balance calculations and associated AFS/FMS entries</li><li>Performance calculations or inputs, including AFS/FMS entries</li></ul><br>Note: All items that require cross check as per SOP\'s shall be conducted as per OM-B.'
+            },
+            {
+                category: 'policies',
+                question: 'What should be done in case of uncertainty about a clearance given by ATC?',
+                answer: 'Both Flight Crew members shall monitor ATC clearances and have a responsibility to query any clearance that is not understood, incorrectly received or incomplete.<br><br>Any uncertainty about a clearance must be resolved by asking ATC to repeat the clearance.'
+            },
+            {
+                category: 'policies',
+                question: 'Can a pilot request ATC for lateral or vertical flight path change if one pilot is absent from the cockpit?',
+                answer: 'It is mandatory that, when one pilot is absent from frequency, no request for lateral or vertical change of the flight path is made to ATC.'
+            },
+            {
+                category: 'policies',
+                question: 'What is the priority of tasks for the Pilot Flying (PF) in Normal Operations?',
+                answer: 'It is responsibility of the PF to:<ul><li>FLY</li><li>NAVIGATE</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What is the priority of tasks for the Pilot Monitoring (PM) in Normal Operations?',
+                answer: 'It is responsibility of the PM to:<ul><li>MONITOR the flight path, the navigation and the aircraft systems</li><li>COMMUNICATE</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What is the priority of tasks for the Pilot Flying (PF) in Abnormal Operations?',
+                answer: 'It is responsibility of the PF to:<ul><li>FLY</li><li>NAVIGATE</li><li>COMMUNICATE after the initiation of:<br>- The ECAM actions, or<br>- A QRH procedure</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What is the priority of tasks for the Pilot Monitoring (PM) in Abnormal Operations?',
+                answer: 'It is responsibility of the PM to:<ul><li>MONITOR the flight path and the navigation</li><li>Perform ECAM actions or apply QRH/OEB procedure</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What is the latest point at which the stabilization approach criteria must be met during circling approaches and visual circuits?',
+                answer: 'Unless specified in the OM-C, for circuits, visual or circling approaches, the aircraft shall be in the landing configuration by 1000 ft AAL except for bank, speed, thrust and rate of descent, which shall be completed by 500 ft AAL.'
+            },
+            {
+                category: 'policies',
+                question: 'What is the latest point at which the stabilization approach criteria must be met during a straight-in instrument approach which is cleared to be concluded visually?',
+                answer: 'Straight-in instrument approaches which are cleared to be concluded visually must meet the Stabilized Approach Criteria at 1,000 ft AAL and adhere to the Stabilized Approach Criteria as described for standard Precision and Non-Precision Approaches.'
+            },
+
+            // EMERGENCY CALLS
+            {
+                category: 'calls',
+                question: 'What is the standard PA required to summon the CM to the flight deck for a NITS briefing or in case of pilot incapacitation?',
+                answer: '"This is the Captain, Cabin Manager to the Flight Deck Immediately"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA required to initiate a Rapid Deplaning? (Except for security related events, i.e. Bomb threat)',
+                answer: '<strong>Time Available:</strong><br>"This is the Captain, Cabin Manager to the Flight Deck Immediately"<br><br><strong>After NITS briefing or if time not available:</strong><br>"This is the Captain, Attention, Attention. This is an important announcement; all passengers must leave the aircraft via the nearest boarding door, in a quick and orderly manner. Leave all personal belongings behind and follow cabin crew instructions"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA required to warn the crew that an abnormal event has arisen or an emergency evacuation may soon be required?',
+                answer: '"This is the Captain, Attention Crew at Stations, Attention Crew at Stations"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA required to inform that an Evacuation is NOT required after the "Attention Crew at Stations" call has been performed?',
+                answer: '"This is the Captain, Normal Operations, Normal Operations, Passengers remain seated"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA required to command an Evacuation?',
+                answer: '"This is the Captain, Evacuate, Evacuate"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA required to warn the cabin crew immediately after take-off that an abnormal event has arisen?',
+                answer: '"This is the Captain, Attention Crew at Stations, Attention Crew at Stations"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA required 2 minutes before impact (e.g. in case of forced landing, landing with abnormal L/G or ditching situation)?',
+                answer: '"This is the Captain, Attention Crew at Stations, Attention Crew at Stations"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA required 30 seconds before impact (e.g. in case of forced landing, landing with abnormal L/G or ditching situation)?',
+                answer: '"This is the Captain, BRACE, BRACE"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA in the event of an Emergency Descent?',
+                answer: '"This is the Captain, Emergency descent, Emergency descent"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA required in case the cabin altitude remains above 10,000ft during a level off while conducting an Emergency Descent?',
+                answer: '"This is the Captain, Passengers and Crew remain on oxygen until advised"'
+            },
+            {
+                category: 'calls',
+                question: 'What is the standard PA required once the cabin altitude is at/below 10,000ft after completing an Emergency Descent?',
+                answer: '"This is the Captain, Emergency Descent completed, Emergency descent completed"'
+            },
+            {
+                category: 'calls',
+                question: 'What is standard PA in the cabin when the aircraft experiences Unexpected Moderate to Severe Turbulence?',
+                answer: '"Cabin Crew be seated"'
+            }
+        ];
+
+        // State
+        let currentIndex = 0;
+        let filteredCards = [...flashcards];
+        let isFlipped = false;
+        let knownCount = 0;
+        let reviewCount = 0;
+
+        // DOM Elements
+        const flashcardElement = document.getElementById('flashcard');
+        const questionText = document.getElementById('questionText');
+        const answerText = document.getElementById('answerText');
+        const cardNumber = document.getElementById('cardNumber');
+        const cardNumberBack = document.getElementById('cardNumberBack');
+        const categoryLabel = document.getElementById('categoryLabel');
+        const categorySelect = document.getElementById('categorySelect');
+        const progressStat = document.getElementById('progressStat');
+        const knownStat = document.getElementById('knownStat');
+        const reviewStat = document.getElementById('reviewStat');
+        const progressFill = document.getElementById('progressFill');
+        const messageArea = document.getElementById('messageArea');
+
+        function formatText(text) {
+            // Convert markdown-style bold to HTML
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            // Preserve line breaks
+            text = text.replace(/\n/g, '<br>');
+            return `<div>${text}</div>`;
+        }
+
+        function updateCard() {
+            if (filteredCards.length === 0) {
+                questionText.innerHTML = '<div>No questions available for this category</div>';
+                answerText.innerHTML = '<div>Select a different category</div>';
+                cardNumber.textContent = '0 / 0';
+                cardNumberBack.textContent = '0 / 0';
+                categoryLabel.textContent = '';
+                return;
+            }
+
+            const card = filteredCards[currentIndex];
+            const categoryNames = {
+                'general': 'General Limitations',
+                'aircon': 'Air Conditioning / Pressurization',
+                'autoflight': 'Auto Flight',
+                'fuel': 'Fuel Limitations',
+                'gear': 'Landing Gear',
+                'oxygen': 'Oxygen',
+                'apu': 'APU',
+                'powerplant': 'Powerplant',
+                'memory': 'Memory Items',
+                'policies': 'Operational Policies',
+                'calls': 'Emergency Calls'
+            };
+            
+            // If card is flipped, unflip it first
+            if (isFlipped) {
+                flashcardElement.classList.remove('flipped');
+                isFlipped = false;
+                // Wait for flip animation to complete before updating content
+                setTimeout(() => {
+                    categoryLabel.textContent = categoryNames[card.category] || card.category;
+                    questionText.innerHTML = formatText(card.question);
+                    answerText.innerHTML = formatText(card.answer);
+                    cardNumber.textContent = `${currentIndex + 1} / ${filteredCards.length}`;
+                    cardNumberBack.textContent = `${currentIndex + 1} / ${filteredCards.length}`;
+                }, 300);
+            } else {
+                // Card is already showing front, update immediately
+                categoryLabel.textContent = categoryNames[card.category] || card.category;
+                questionText.innerHTML = formatText(card.question);
+                answerText.innerHTML = formatText(card.answer);
+                cardNumber.textContent = `${currentIndex + 1} / ${filteredCards.length}`;
+                cardNumberBack.textContent = `${currentIndex + 1} / ${filteredCards.length}`;
+            }
+            
+            updateStats();
+        }
+
+        function updateStats() {
+            progressStat.textContent = `${currentIndex + 1}/${filteredCards.length}`;
+            knownStat.textContent = knownCount;
+            reviewStat.textContent = reviewCount;
+            
+            const progress = ((currentIndex + 1) / filteredCards.length) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        function showMessage(text, type = 'info') {
+            messageArea.innerHTML = `<div class="message">${text}</div>`;
+            setTimeout(() => {
+                messageArea.innerHTML = '';
+            }, 3000);
+        }
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Event Listeners
+        flashcardElement.addEventListener('click', () => {
+            flashcardElement.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCard();
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentIndex < filteredCards.length - 1) {
+                currentIndex++;
+                updateCard();
+            } else {
+                showMessage('You\'ve reached the end! Click shuffle to start over or select a new category.');
+            }
+        });
+
+        document.getElementById('knowBtn').addEventListener('click', () => {
+            knownCount++;
+            if (currentIndex < filteredCards.length - 1) {
+                currentIndex++;
+                updateCard();
+            } else {
+                updateStats();
+                showMessage('Great job! You\'ve completed all cards!');
+            }
+        });
+
+        document.getElementById('reviewBtn').addEventListener('click', () => {
+            reviewCount++;
+            if (currentIndex < filteredCards.length - 1) {
+                currentIndex++;
+                updateCard();
+            } else {
+                updateStats();
+                showMessage('You\'ve marked this for review. Time to study these again!');
+            }
+        });
+
+        document.getElementById('shuffleBtn').addEventListener('click', () => {
+            filteredCards = shuffleArray(filteredCards);
+            currentIndex = 0;
+            knownCount = 0;
+            reviewCount = 0;
+            updateCard();
+            showMessage('Cards shuffled! Ready to study.');
+        });
+
+        categorySelect.addEventListener('change', (e) => {
+            const category = e.target.value;
+            if (category === 'all') {
+                filteredCards = [...flashcards];
+            } else {
+                filteredCards = flashcards.filter(card => card.category === category);
+            }
+            filteredCards = shuffleArray(filteredCards);
+            currentIndex = 0;
+            knownCount = 0;
+            reviewCount = 0;
+            updateCard();
+            
+            const categoryNames = {
+                'all': 'All Questions',
+                'general': 'General Limitations',
+                'aircon': 'Air Conditioning',
+                'autoflight': 'Auto Flight',
+                'fuel': 'Fuel',
+                'gear': 'Landing Gear',
+                'oxygen': 'Oxygen',
+                'apu': 'APU',
+                'powerplant': 'Powerplant',
+                'memory': 'Memory Items',
+                'policies': 'Operational Policies',
+                'calls': 'Emergency Calls'
+            };
+            showMessage(`Studying: ${categoryNames[category]} (${filteredCards.length} cards)`);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    document.getElementById('prevBtn').click();
+                    break;
+                case 'ArrowRight':
+                    document.getElementById('nextBtn').click();
+                    break;
+                case ' ':
+                    e.preventDefault();
+                    flashcardElement.click();
+                    break;
+                case 'k':
+                case 'K':
+                    document.getElementById('knowBtn').click();
+                    break;
+                case 'r':
+                case 'R':
+                    document.getElementById('reviewBtn').click();
+                    break;
+            }
+        });
+
+        // Touch swipe functionality for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
+        const minSwipeDistance = 50;
+
+        flashcardElement.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        flashcardElement.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeDistanceX = touchEndX - touchStartX;
+            const swipeDistanceY = touchEndY - touchStartY;
+            
+            // Check if horizontal swipe is more significant than vertical
+            if (Math.abs(swipeDistanceX) > Math.abs(swipeDistanceY)) {
+                // Horizontal swipe
+                if (Math.abs(swipeDistanceX) > minSwipeDistance) {
+                    if (swipeDistanceX > 0) {
+                        // Swipe right - go to previous
+                        document.getElementById('prevBtn').click();
+                    } else {
+                        // Swipe left - go to next
+                        document.getElementById('nextBtn').click();
+                    }
+                }
+            }
+            // If it's a tap (minimal movement), let the flip handler deal with it
+        }
+
+        // Initialize
+        filteredCards = shuffleArray(filteredCards);
+        updateCard();
+    </script>
+</body>
+</html>
