@@ -490,6 +490,16 @@
             },
             {
                 category: 'general',
+                question: 'What is the aircraft maximum structural weight (TAXI, MTOW, MLW, MZFW)?',
+                answer: 'All structural weights are as specified in the LIM chapter'
+            },
+            {
+                category: 'general',
+                question: 'What are the maximum speeds for each flap/slat configuration (0, 1, 1+F, 2, 3, full)?',
+                answer: 'As specified on the cockpit placard and PFD'
+            },
+            {
+                category: 'general',
                 question: 'What is the limitation when taking off between 170T-175T on the A350?',
                 answer: '<strong>A350:</strong> CONF 1+F is mandatory<br><strong>A380:</strong> N/A'
             },
@@ -654,11 +664,31 @@
             },
             {
                 category: 'autoflight',
+                question: 'What is the limitation regarding the use of the autopilot to perform a Non-Precision Approach if one engine is inoperative?',
+                answer: 'No limitation specified'
+            },
+            {
+                category: 'autoflight',
+                question: 'The FLS function may be used for which approach types?',
+                answer: '<table border="1" style="border-collapse: collapse; width: 100%; margin-top: 10px;"><tr><th style="padding: 8px; background: rgba(212, 175, 55, 0.2);">Approach Type</th><th style="padding: 8px; background: rgba(212, 175, 55, 0.2);">F-APP</th><th style="padding: 8px; background: rgba(212, 175, 55, 0.2);">F-APP+RAW</th></tr><tr><td style="padding: 8px;">VOR, VOR/DME, LOC (BC)</td><td style="padding: 8px;">YES</td><td style="padding: 8px;">YES</td></tr><tr><td style="padding: 8px;">ILS (G/S OUT)<br>ILS-BC (G/S OUT)</td><td style="padding: 8px;">YES</td><td style="padding: 8px;">YES</td></tr><tr><td style="padding: 8px;">RNAV (GNSS)</td><td style="padding: 8px;">YES</td><td style="padding: 8px;">Not Allowed</td></tr></table>'
+            },
+            {
+                category: 'autoflight',
+                question: 'What are the mandatory precautions that must be taken if performing an automatic landing in CAT 1 or better weather conditions (Practice LVP Approach/Autoland)?',
+                answer: '<ol><li>Practice low visibility approaches and/or Autoland are only permitted on runways certified for LVP, with prior ATC coordination and assurance of protection against signal disturbance. (OM-A 8.4.12).</li><li>The crew is aware that LOC or GS beam fluctuations, independent of aircraft systems, may occur and the PF is prepared to immediately disconnect the AP and take appropriate action, should unsatisfactory guidance occur.</li><li>At least CAT 2 (LAND 2) capability is displayed on the FMA, and CAT 2/CAT 3 procedures are used.</li><li>Visual references are obtained at an altitude appropriate to the performed CAT 1 approach. Otherwise, a go-around must be initiated.</li></ol>'
+            },
+            {
+                category: 'autoflight',
                 question: 'As per EY policy what is the lowest approved minima for Low Visibility take-off?',
                 answer: '125 m (Both aircraft)'
             },
 
             // FUEL LIMITATIONS
+            {
+                category: 'fuel',
+                question: 'What is the maximum allowable fuel imbalance in either inner or outer tanks at takeoff, landing and in flight?',
+                answer: 'As specified in the LIM Chapter'
+            },
             {
                 category: 'fuel',
                 question: 'What is the maximum fuel temperature?',
@@ -691,8 +721,18 @@
                 question: 'What are the maximum speeds for landing gear extension and retraction?',
                 answer: 'Ext: 250 kt / M 0.55<br>Ret: 250 kt / M 0.55<br>(Both aircraft)'
             },
+            {
+                category: 'gear',
+                question: 'What are the limitations regarding taxi with deflated or damaged tires?',
+                answer: '<strong>A350:</strong><ul><li>Maxi taxi speed: 3 kt</li><li>Maxi NSW angle: 30°</li><li>No more than one affected tire on the nose landing gear</li><li>No more than two affected tires on each main landing gear provided that the affected tires are not on the same axle</li></ul>In addition, if tire damage is suspected, the flight crew must ask for an aircraft inspection prior to vacate the runway or taxi. If the ground crew suspects that a tire burst may damage the landing gear, maintenance action is due.<br><br><strong>A380:</strong><ul><li>No deflated nose landing gear tire in the case of towing with tow barless towing</li><li>Max speed is 3 kt</li><li>Maxi NSW angle is 30 degrees</li><li>Up to 9 tires can be deflated, with the following max per landing gear:<br>- One tire deflated on the nose LDG GR<br>- Two tires deflated per body landing gear, provided they are not on the same axle<br>- Two tires deflated per wing landing gear provided they are not on the same axle</li></ul>For runway vacating only, the 2 deflated tires on the body or wing can be on the same axle.<br>For taxi, the two deflated tires can be located on the center axle of the body landing gear.'
+            },
 
             // OXYGEN LIMITATIONS
+            {
+                category: 'oxygen',
+                question: 'What is the minimum oxygen required for a particular flight and flight crew?',
+                answer: 'As specified on the tables in LIM Chapter'
+            },
             {
                 category: 'oxygen',
                 question: 'Following a loss of cabin pressure, the minimum oxygen required for a particular flight and flight crew, assumes the mask regulator is in what position?',
@@ -980,6 +1020,61 @@
                 category: 'policies',
                 question: 'When will the Flight Deck crew declare "MAYDAY FUEL"?',
                 answer: 'When the calculated usable fuel on landing, at the nearest adequate airport where a safe landing can be performed, is less than Final Reserve Fuel (FRF).'
+            },
+            {
+                category: 'policies',
+                question: 'What are the applicable procedures when a pilot needs to leave the flight deck?',
+                answer: 'When a flight crew member needs to leave the flight deck the remaining flight crew member shall:<ul><li>Be seated at his duty station</li><li>Adjust his seat to ensure that all flight controls can be reached with unobstructed access</li><li>Secure his seatbelt and shoulder harness</li><li>Wear headset for communication with ATC</li><li>Assume responsibility and control of the aircraft</li><li>Maintain constant vigilance, alertness and high situational awareness</li><li>Avoid asking for vertical or lateral changes from the assigned flight path</li><li>Avoid unnecessary paperwork</li><li>Not accept to be served crew meals</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What are the mandatory altitude checks and callouts during climb and descent phases of flight?',
+                answer: 'Altitude awareness is achieved by the active attention of the Flight Crew. This awareness with associated continuous monitoring is the primary means of ensuring that cleared altitudes are adhered to and clearances are not infringed. The mandatory checks and calls are:<ul><li>"10,000\' above airport elevation"</li><li>Every 10,000\' (FL200 and above, in climb and descent): "Passing ALT/FL…, climbing / Descending FL/ALT…"</li><li>1,000\' before reaching the cleared Altitude or Flight Level: "one thousand to go"</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What critical actions shall be crosschecked and confirmed by the flight crew?',
+                answer: '<ul><li>Engine thrust levers</li><li>Fuel master or control switches</li><li>Engine fire handles or switches</li><li>IDG/CSD disconnect switch</li><li>Aircraft configuration changes (Landing gear, wing flaps, speedbrakes)</li><li>Altimeter bug and airspeed bug settings, as applicable</li><li>Altimeter subscale settings</li><li>Altitude (window) selections</li><li>Transfer of control of the aircraft</li><li>Changes to the Automated Flight system (AFS) / Flight Management System (FMS) and radio navigation aids during the departure and or approach phases of flight</li><li>Weight/mass and balance calculations and associated AFS/FMS entries</li><li>Performance calculations or inputs, including AFS/FMS entries</li></ul><br>Note: All items that require cross check as per SOP\'s shall be conducted as per OM-B.'
+            },
+            {
+                category: 'policies',
+                question: 'What should be done in case of uncertainty about a clearance given by ATC?',
+                answer: 'Both Flight Crew members shall monitor ATC clearances and have a responsibility to query any clearance that is not understood, incorrectly received or incomplete.<br><br>Any uncertainty about a clearance must be resolved by asking ATC to repeat the clearance.'
+            },
+            {
+                category: 'policies',
+                question: 'Can a pilot request ATC for lateral or vertical flight path change if one pilot is absent from the cockpit?',
+                answer: 'It is mandatory that, when one pilot is absent from frequency, no request for lateral or vertical change of the flight path is made to ATC.'
+            },
+            {
+                category: 'policies',
+                question: 'What is the priority of tasks for the Pilot Flying (PF) in Normal Operations?',
+                answer: 'It is responsibility of the PF to:<ul><li>FLY</li><li>NAVIGATE</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What is the priority of tasks for the Pilot Monitoring (PM) in Normal Operations?',
+                answer: 'It is responsibility of the PM to:<ul><li>MONITOR the flight path, the navigation and the aircraft systems</li><li>COMMUNICATE</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What is the priority of tasks for the Pilot Flying (PF) in Abnormal Operations?',
+                answer: 'It is responsibility of the PF to:<ul><li>FLY</li><li>NAVIGATE</li><li>COMMUNICATE after the initiation of:<br>- The ECAM actions, or<br>- A QRH procedure</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What is the priority of tasks for the Pilot Monitoring (PM) in Abnormal Operations?',
+                answer: 'It is responsibility of the PM to:<ul><li>MONITOR the flight path and the navigation</li><li>Perform ECAM actions or apply QRH/OEB procedure</li></ul>'
+            },
+            {
+                category: 'policies',
+                question: 'What is the latest point at which the stabilization approach criteria must be met during circling approaches and visual circuits?',
+                answer: 'Unless specified in the OM-C, for circuits, visual or circling approaches, the aircraft shall be in the landing configuration by 1000 ft AAL except for bank, speed, thrust and rate of descent, which shall be completed by 500 ft AAL.'
+            },
+            {
+                category: 'policies',
+                question: 'What is the latest point at which the stabilization approach criteria must be met during a straight-in instrument approach which is cleared to be concluded visually?',
+                answer: 'Straight-in instrument approaches which are cleared to be concluded visually must meet the Stabilized Approach Criteria at 1,000 ft AAL and adhere to the Stabilized Approach Criteria as described for standard Precision and Non-Precision Approaches.'
             },
 
             // EMERGENCY CALLS
